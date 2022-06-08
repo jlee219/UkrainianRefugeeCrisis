@@ -293,7 +293,12 @@ var config = {
             title: 'Moldova',
             image: 'https://raw.githubusercontent.com/jlee219/UkrainianRefugeeCrisis/main/moldovaukraineflag.webp',
             source: 'Image: Ukrainian News',
-            description: 'Between 1998 and 2015, Harrison Glacier lost 37 acres of surface area (about 16%).',
+            description: 'By far the smallest country amongst the main countries that Ukranians are fleeing to, Moldova is one of the poorest countries in Europe. Both in terms of population and landmass, Moldova is much smaller than any other country on this list but that hasn’t stopped them from accepting Ukrainian refugees.',
+            facts: 'This is all while Moldova have their own problems with Russian troops and separatists trying to annex parts of Moldova into the unrecognized state of Transnistria, a former Soviet republic. Relations with the two countries stagnated with pro-Russian Molodovan President Igor Dodon in the recent past, but was changed with a pro-Europe president in Maia Sandu in 2020. Her first foreign trip as president was to the Ukrainian capitol of Kyiv to discuss and plan future cooperation between the two countries. President Sandu was also quick to condemn the Russian attack and opened their borders to Ukrainian refugees.',
+            info: '- 2.62 million people living in Moldova (2020)',
+            numbers: '- 75% Moldovan',
+            numbers1: '- 12,068 mi² landmass',
+            numbers2: '- Over 480,000 Ukrainian refugees',
             location: {
                 center: [27.466148, 46.939340],
                 zoom: 7.2,
