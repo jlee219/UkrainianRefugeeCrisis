@@ -2,12 +2,11 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title>Mapbox Storytelling</title>
+    <title>Ukraine Refugees</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/mapbox/assembly/publisher-staging/src/svgs/mapbox.svg">
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
-    <script src="https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
     <style>
         body {
@@ -23,18 +22,6 @@
             height: 100vh;
             width:100vw;
             position: fixed;
-        }
-        #mapInset {
-            bottom:50px;
-            right:30px;
-            height: 180px;
-            width:250px;
-            max-width:100%;
-            position: fixed;
-            z-index: 1;
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out;
-            pointer-events: none;
         }
         #header {
             margin: auto;
@@ -58,6 +45,10 @@
             position: relative;
             z-index: 5;
         }
+        h3 {
+            text-align: center;
+            font-size: 25px;
+        }
         #features {
             padding-top: 10vh;
             padding-bottom: 10vh;
@@ -70,15 +61,36 @@
             margin: 0 auto;
         }
         .lefty {
-            width: 33vw;
+            width: 40vw;
+            margin-left: 0.5vw;
+        }
+        .leftyy {
+            width: 45vw;
             margin-left: 5vw;
         }
         .righty {
-            width: 33vw;
-            margin-left: 62vw;
+            width: 65vw;
+            margin-left: 49vw;
+        }
+        .rightyy {
+            width: 39vw;
+            margin-left: 58vw;
+        }
+        .stats {
+            width: 32vw;
+            margin-left: 64vw;
+        }
+        .poland {
+            width: 43vw;
+            margin-left: 54vw;
+        }
+        .romaniastats {
+            width: 45vw;
+            height: 10vw;
+            margin-left: 54vw;
         }
         .fully {
-            width: 100%;
+            width: 45%;
             margin: auto;
         }
         .light {
@@ -116,7 +128,7 @@
         }
 
         /* Fix issue on mobile browser where scroll breaks  */
-        .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan,
+        .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan, 
         .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan .mapboxgl-canvas {
             touch-action: unset;
         }
@@ -126,12 +138,9 @@
 <body>
 
 <div id="map"></div>
-<div id="mapInset"></div>
 <div id="story"></div>
-
 <script src="./config.js"></script>
 <script>
-var initLoad = true;
 var layerTypes = {
     'fill': ['fill-opacity'],
     'line': ['line-opacity'],
@@ -144,8 +153,13 @@ var layerTypes = {
 
 var alignments = {
     'left': 'lefty',
+    'leftyy': 'leftyy',
     'center': 'centered',
     'right': 'righty',
+    'rightyy': 'rightyy',
+    'stats': 'stats',
+    'poland' : 'poland',
+    'romaniastats' : 'romaniastats',
     'full': 'fully'
 }
 
@@ -185,6 +199,12 @@ if (config.subtitle) {
     header.appendChild(subtitleText);
 }
 
+if (config.about) {
+    var aboutText = document.createElement('h2');
+    aboutText.innerText = config.about;
+    header.appendChild(aboutText);
+}
+
 if (config.byline) {
     var bylineText = document.createElement('p');
     bylineText.innerText = config.byline;
@@ -207,16 +227,60 @@ config.chapters.forEach((record, idx) => {
         chapter.appendChild(title);
     }
 
+    if (record.titlecenter) {
+        var title = document.createElement('h3');
+        title.innerText = record.title;
+        chapter.appendChild(title);
+    }
+
     if (record.image) {
         var image = new Image();
         image.src = record.image;
+        image.height = "500"
         chapter.appendChild(image);
     }
+
+    if (record.source) {
+        var source = document.createElement('p');
+        source.innerHTML = record.source;
+        chapter.appendChild(source);
+    }
+    
 
     if (record.description) {
         var story = document.createElement('p');
         story.innerHTML = record.description;
         chapter.appendChild(story);
+    }
+
+    if (record.facts) {
+        var facts = document.createElement('p');
+        facts.innerHTML = record.facts;
+        chapter.appendChild(facts);
+    }
+
+    if (record.info) {
+        var info = document.createElement('p');
+        info.innerHTML = record.info;
+        chapter.appendChild(info);
+    }
+
+    if (record.numbers) {
+        var numbers = document.createElement('p');
+        numbers.innerHTML = record.numbers;
+        chapter.appendChild(numbers);
+    }
+
+    if (record.numbers1) {
+        var numbers1 = document.createElement('p');
+        numbers1.innerHTML = record.numbers1;
+        chapter.appendChild(numbers1);
+    }
+
+    if (record.numbers2) {
+        var numbers2 = document.createElement('p');
+        numbers2.innerHTML = record.numbers2;
+        chapter.appendChild(numbers2);
     }
 
     container.setAttribute('id', record.id);
@@ -268,26 +332,8 @@ var map = new mapboxgl.Map({
     bearing: config.chapters[0].location.bearing,
     pitch: config.chapters[0].location.pitch,
     interactive: false,
-    transformRequest: transformRequest,
-    projection: config.projection
+    transformRequest: transformRequest
 });
-
-// Create a inset map if enabled in config.js
-if (config.inset) {
- var insetMap = new mapboxgl.Map({
-    container: 'mapInset', // container id
-    style: 'mapbox://styles/mapbox/dark-v10', //hosted style id
-    center: config.chapters[0].location.center,
-    // Hardcode above center value if you want insetMap to be static.
-    zoom: 3, // starting zoom
-    hash: false,
-    interactive: false,
-    attributionControl: false,
-    //Future: Once official mapbox-gl-js has globe view enabled,
-    //insetmap can be a globe with the following parameter.
-    //projection: 'globe'
-  });
-}
 
 if (config.showMarkers) {
     var marker = new mapboxgl.Marker({ color: config.markerColor });
@@ -296,7 +342,6 @@ if (config.showMarkers) {
 
 // instantiate the scrollama
 var scroller = scrollama();
-
 
 map.on("load", function() {
     if (config.use3dTerrain) {
@@ -321,10 +366,6 @@ map.on("load", function() {
         });
     };
 
-    // As the map moves, grab and update bounds in inset map.
-    if (config.inset) {
-    map.on('move', getInsetBounds);
-    }
     // setup the instance, pass callback functions
     scroller
     .setup({
@@ -332,21 +373,11 @@ map.on("load", function() {
         offset: 0.5,
         progress: true
     })
-    .onStepEnter(async response => {
+    .onStepEnter(response => {
         var chapter = config.chapters.find(chap => chap.id === response.element.id);
         response.element.classList.add('active');
         map[chapter.mapAnimation || 'flyTo'](chapter.location);
-        // Incase you do not want to have a dynamic inset map,
-        // rather want to keep it a static view but still change the
-        // bbox as main map move: comment out the below if section.
-        if (config.inset) {
-          if (chapter.location.zoom < 5) {
-            insetMap.flyTo({center: chapter.location.center, zoom: 0});
-          }
-          else {
-            insetMap.flyTo({center: chapter.location.center, zoom: 3});
-          }
-        }
+
         if (config.showMarkers) {
             marker.setLngLat(chapter.location.center);
         }
@@ -357,10 +388,10 @@ map.on("load", function() {
             window[chapter.callback]();
         }
         if (chapter.rotateAnimation) {
-            map.once('moveend', () => {
+            map.once('moveend', function() {
                 const rotateNumber = map.getBearing();
-                map.rotateTo(rotateNumber + 180, {
-                    duration: 30000, easing: function (t) {
+                map.rotateTo(rotateNumber + 90, {
+                    duration: 24000, easing: function (t) {
                         return t;
                     }
                 });
@@ -375,89 +406,6 @@ map.on("load", function() {
         }
     });
 });
-
-//Helper functions for insetmap
-function getInsetBounds() {
-            let bounds = map.getBounds();
-
-            let boundsJson = {
-                "type": "FeatureCollection",
-                "features": [{
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [
-                            [
-                                [
-                                    bounds._sw.lng,
-                                    bounds._sw.lat
-                                ],
-                                [
-                                    bounds._ne.lng,
-                                    bounds._sw.lat
-                                ],
-                                [
-                                    bounds._ne.lng,
-                                    bounds._ne.lat
-                                ],
-                                [
-                                    bounds._sw.lng,
-                                    bounds._ne.lat
-                                ],
-                                [
-                                    bounds._sw.lng,
-                                    bounds._sw.lat
-                                ]
-                            ]
-                        ]
-                    }
-                }]
-            }
-
-            if (initLoad) {
-                addInsetLayer(boundsJson);
-                initLoad = false;
-            } else {
-                updateInsetLayer(boundsJson);
-            }
-
-        }
-
-function addInsetLayer(bounds) {
-    insetMap.addSource('boundsSource', {
-        'type': 'geojson',
-        'data': bounds
-    });
-
-    insetMap.addLayer({
-        'id': 'boundsLayer',
-        'type': 'fill',
-        'source': 'boundsSource', // reference the data source
-        'layout': {},
-        'paint': {
-            'fill-color': '#fff', // blue color fill
-            'fill-opacity': 0.2
-        }
-    });
-    // // Add a black outline around the polygon.
-    insetMap.addLayer({
-        'id': 'outlineLayer',
-        'type': 'line',
-        'source': 'boundsSource',
-        'layout': {},
-        'paint': {
-            'line-color': '#000',
-            'line-width': 1
-        }
-    });
-}
-
-function updateInsetLayer(bounds) {
-    insetMap.getSource('boundsSource').setData(bounds);
-}
-
-
 
 // setup resize event
 window.addEventListener('resize', scroller.resize);
