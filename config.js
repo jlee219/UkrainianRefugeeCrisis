@@ -230,7 +230,12 @@ var config = {
             title: 'Ukrainians Moving Into Russia',
             image: 'https://raw.githubusercontent.com/jlee219/UkrainianRefugeeCrisis/main/charts_png/russianfederation.png',
             source: 'Source: UNHCR Agency Data',
-            description: '',
+            description: 'Although the refugee crisis in Ukraine has been put in the spotlight and has been given more attention since Russia decided to invade Ukraine back in February, the conflict between Ukraine and the Soviet Union did not just start then. More specifically, the soviet union has been striving to overthrow the independence of Ukraine since the 20th century. This is mainly due to the fact that Russia views the Ukrainian capital of Kyiv as the birthplace of their nation. This ultimately was the main motivation as to why Russia has gone to extreme lengths of preventing Ukraine from forming allies with the U.S. and other countries.',
+            facts: 'In spite of the years of conflict between the two countries, there have been various attempts to resolve the ongoing conflict. One of these attempts was Ukraine giving up its nuclear arsenal in 1994 to the Soviet Union in exchange for Russia respecting their sovereignty. Although this has allowed the relationship between the countries to be “civil” for a while, this has only delayed Russia’s desire to take over Ukraine, as the tension and conflict has only seemed to escalate in recent weeks.',
+            info: '- 144.1 million people living in Russia (2020)',
+            numbers: '- 81% Russian population',
+            numbers1: '- 6.6 million mi² landmass',
+            numbers2: '- Over 945,000 Ukranian refugees **(this number maybe innaccurate include POWs, kidnappings, etc.)**'
             location: {
                 center: [60.949384, 60.851563],
                 zoom: 2.50,
