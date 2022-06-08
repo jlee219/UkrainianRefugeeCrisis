@@ -5,8 +5,11 @@ jlee219.github.io/UkranianRefugeeCrisis
 # Team Members
 
 Bjorn Soriano
+
 Jason Lee
+
 Ryan Danao
+
 
 ## Project Description
 
@@ -23,6 +26,7 @@ Our primary goal and function of the story map is to both educate those who may 
 ## Data Sources
 
 United Nations High Commissioner for Refugees
+
 BBC
 
 ## Applied Libraries
