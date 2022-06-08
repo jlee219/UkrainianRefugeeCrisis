@@ -235,7 +235,7 @@ var config = {
             info: '- 144.1 million people living in Russia (2020)',
             numbers: '- 81% Russian population',
             numbers1: '- 6.6 million mi² landmass',
-            numbers2: '- Over 945,000 Ukranian refugees **(this number maybe innaccurate include POWs, kidnappings, etc.)**'
+            numbers2: '- Over 945,000 Ukranian refugees **(this number maybe innaccurate include POWs, kidnappings, etc.)**',
             location: {
                 center: [60.949384, 60.851563],
                 zoom: 2.50,
