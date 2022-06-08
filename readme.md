@@ -1,6 +1,6 @@
 ﻿# Ukrainian Refugee Crisis
 
-jlee219.github.io/UkranianRefugeeCrisis
+jlee219.github.io/UkrainianRefugeeCrisis
 
 # Team Members
 
